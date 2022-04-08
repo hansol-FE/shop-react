@@ -2,6 +2,19 @@
   text-align: center;
 }
 
+.background{
+  background-image: url('https://codingapple1.github.io/shop/background.jpg');
+  background-size: cover;
+  color: white;
+}
+.background h1{
+  padding: 50px 0;
+  text-align: center;
+}
+.background button{
+  margin: 30px auto;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
