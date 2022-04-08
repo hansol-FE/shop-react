@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import Product from './Product';
 import Detail from './Detail';
+import Cart from './Cart';
 import './App.css';
 import Data from './data.js';
 
@@ -30,6 +31,7 @@ function App() {
                 <Nav className="me-auto">
                   <Nav.Link as={Link} to="/">Home</Nav.Link>
                   <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
+                  <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -74,6 +76,10 @@ function App() {
           <stockContext.Provider value={stock}>
             <Detail shoes={shoes} stock={stock} setStock={setStock}/>
           </stockContext.Provider>
+        </Route>
+
+        <Route path="/cart">
+          <Cart />
         </Route>
         
       </Switch>        

@@ -1,8 +1,10 @@
 import React,{useEffect,useState,useContext} from 'react' 
+import {Nav} from 'react-bootstrap';
 import {useHistory, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
 import {stockContext} from './App.js'
+import {CSSTransition} from 'react-transition-group';
 
 // let box = styled.div`
 //   padding : 20px;
@@ -18,6 +20,8 @@ export default function Detail(props) {
   let findShose = props.shoes.find(x => x.id == id);
   let stock = useContext(stockContext);
 
+  let [tab,setTab] = useState(0);
+  let [transition,setTransition] = useState(false);
 
   let [alert, setAlert] = useState(true);
   let [text,setText] = useState("");
@@ -56,14 +60,42 @@ export default function Detail(props) {
           <Info stock={props.stock} />
 
 
-          <button className="btn btn-danger" onClick={()=>{props.setStock([9,11,12])}}>주문하기</button> 
+          <button className="btn btn-danger m-3" onClick={()=>{props.setStock([9,11,12])}}>주문하기</button> 
           <button className="btn btn-danger" onClick={()=>{history.push('/')}}>메인으로</button> 
+
+          <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+            <Nav.Item>
+              <Nav.Link eventKey="link-0" onClick={()=>{setTab(0);setTransition(false)}}>Active</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-1" onClick={()=>{setTab(1);setTransition(false)}}>Option 2</Nav.Link>
+            </Nav.Item>
+          </Nav>
+          {
+
+          }
+
+          <CSSTransition in={transition} classNames="wow" timeout={500}>
+            <TabContents tab={tab} setTransition={setTransition} />
+          </CSSTransition>
+
         </div>
       </div>
     </div> 
   )
 }
 
+function TabContents(props){
+  useEffect(()=>{
+    props.setTransition(true);
+  })
+  if(props.tab === 0){
+    return <div>0번째</div>
+  }else if(props.tab === 1){
+    return <div>1번째</div>
+  }
+  
+}
 
 function Info(props){
   return(
