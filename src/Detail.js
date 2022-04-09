@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import './Detail.scss';
 import {stockContext} from './App.js'
 import {CSSTransition} from 'react-transition-group';
+import { connect } from 'react-redux';
 
 // let box = styled.div`
 //   padding : 20px;
@@ -14,7 +15,7 @@ import {CSSTransition} from 'react-transition-group';
 //   color : ${ props => props.색상 }
 // `;
 
-export default function Detail(props) {
+function Detail(props) {
   let history = useHistory();
   let { id } = useParams();
   let findShose = props.shoes.find(x => x.id == id);
@@ -60,7 +61,11 @@ export default function Detail(props) {
           <Info stock={props.stock} />
 
 
-          <button className="btn btn-danger m-3" onClick={()=>{props.setStock([9,11,12])}}>주문하기</button> 
+          <button className="btn btn-danger m-3" onClick={()=>{
+            props.setStock([9,11,12]);
+            props.dispatch({type:'cartAdd',payload:{ id:findShose.id,name:findShose.title,quan:25}});
+            history.push('/cart');
+            }}>주문하기</button> 
           <button className="btn btn-danger" onClick={()=>{history.push('/')}}>메인으로</button> 
 
           <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
@@ -101,4 +106,17 @@ function Info(props){
   return(
     <p>재고 : {props.stock[0]}</p>
   )
+  
 }
+
+
+
+
+function stateToprops(state){ // redux store 데이터를 가져와서 props로 변환해주는 함수
+  return{
+    state : state.reducer,
+    alertState : state.reducer2
+  }
+}
+
+export default connect(stateToprops)(Detail)

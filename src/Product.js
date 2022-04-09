@@ -7,7 +7,7 @@ export default function Product(props) {
   let stock = useContext(stockContext);
 
   return (
-    <div className="col-md-4" onClick={()=>{history.push('/detail/'+props.i)}} style={{cursor:'pointer'}}>
+    <div className="col-md-4" onClick={()=>{history.push('/detail/'+props.shoes.id)}} style={{cursor:'pointer'}}>
       <img src={"https://codingapple1.github.io/shop/shoes"+(props.i+1)+".jpg"} alt="shoes" width="100%" />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content} & {props.shoes.price}</p>

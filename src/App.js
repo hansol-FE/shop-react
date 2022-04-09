@@ -1,12 +1,13 @@
 /* eslint-disable */
 import React from 'react';
-import { Navbar,Container,Nav,NavDropdown,Button } from 'react-bootstrap';
-import {useState} from 'react';
+import { Navbar,Container,Nav } from 'react-bootstrap';
+import {useState , lazy, Suspense} from 'react';
 import {Link,Route,Switch} from 'react-router-dom';
 import axios from 'axios';
 
 import Product from './Product';
-import Detail from './Detail';
+//import Detail from './Detail';
+let Detail = lazy(()=>{return import('./Detail.js')});
 import Cart from './Cart';
 import './App.css';
 import Data from './data.js';
@@ -74,7 +75,9 @@ function App() {
         
         <Route path="/detail/:id">
           <stockContext.Provider value={stock}>
-            <Detail shoes={shoes} stock={stock} setStock={setStock}/>
+            <Suspense fallback={<div>로딩중이에요</div>}>
+              <Detail shoes={shoes} stock={stock} setStock={setStock}/>
+            </Suspense>
           </stockContext.Provider>
         </Route>
 
